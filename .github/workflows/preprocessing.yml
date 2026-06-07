@@ -1,0 +1,39 @@
+name: Automasi Preprocessing Data
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-preprocessing:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Mengambil kode dari repositori GitHub
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Menyiapkan environment Python
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11' 
+
+    # 3. Menginstal library yang dibutuhkan
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas scikit-learn
+
+    # 4. Menjalankan skrip automate_Rizqiyah.py
+    - name: Execute preprocessing script
+      run: |
+        python preprocessing/automate_Rizqiyah.py
+
+    # 5. MENGEMBALIKAN DATASET YANG SUDAH DIPROSES
+    - name: Upload Processed Dataset
+      uses: actions/upload-artifact@v4
+      with:
+        name: dataset-bersih-rizqiyah
+        path: preprocessing/heart_failure_preprocessing.csv

@@ -1,11 +1,15 @@
+import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 def run_preprocessing():
     print("Memulai otomatisasi preprocessing...")
     
-    # 1. Memuat dataset (path menggunakan '../' karena skrip ada di folder preprocessing)
-    file_path = '../heart_failure_clinical_records.csv'
+    # Mendapatkan direktori dari skrip ini berada (folder preprocessing)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # 1. Menggabungkan path ke file CSV yang ada di satu tingkat di atasnya
+    file_path = os.path.join(current_dir, '..', 'heart_failure_clinical_records.csv')
     df = pd.read_csv(file_path)
     print(f"Shape data awal: {df.shape}")
     
